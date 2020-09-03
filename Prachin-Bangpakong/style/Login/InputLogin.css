@@ -1,0 +1,77 @@
+﻿input {
+    font-size: 12pt;
+    height: 40px;
+    width: 100%;
+    max-width: 100%;
+    padding-left: 5px;
+    color: blueviolet;
+}
+input:focus {
+    border: 2px solid #9999ff;
+}
+
+input::placeholder {
+    font-size: 12pt;
+    color: #71c4ff;
+}
+
+.input-group {
+    margin-bottom: 1em;
+    zoom: 1;
+}
+
+    .input-group:before,
+    .input-group:after {
+        content: "";
+        display: table;
+    }
+
+    .input-group:after {
+        clear: both;
+    }
+
+.input-group-icon {
+    position: relative;
+    width: 100%;
+}
+
+    .input-group-icon input {
+        padding-left: 4em;
+    }
+
+    .input-group-icon .input-icon {
+        position: absolute;
+        top: 5px;
+        left: 0;
+        width: 3.4em;
+        height: 3.4em;
+        line-height: 3.4em;
+        text-align: center;
+        pointer-events: none;
+    }
+
+        .input-group-icon .input-icon:after {
+            position: absolute;
+            top: 0;
+            bottom: 20px;
+            left: 3.4em;
+            display: block;
+            border-right: 1px solid #e5e5e5;
+            content: "";
+            -webkit-transition: 0.35s ease-in-out;
+            -moz-transition: 0.35s ease-in-out;
+            -o-transition: 0.35s ease-in-out;
+            transition: 0.35s ease-in-out;
+            transition: all 0.35s ease-in-out;
+        }
+
+        .input-group-icon .input-icon i {
+            -webkit-transition: 0.35s ease-in-out;
+            -moz-transition: 0.35s ease-in-out;
+            -o-transition: 0.35s ease-in-out;
+            transition: 0.35s ease-in-out;
+            transition: all 0.35s ease-in-out;
+            font-size: 18pt;
+        }
+
+

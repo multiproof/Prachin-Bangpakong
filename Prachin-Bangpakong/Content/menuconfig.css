@@ -1,0 +1,20 @@
+﻿#sub-header ul li:hover,
+body.index li.index,
+body.station li.station,
+body.graph li.graph,
+body.map li.map,
+body.mapsalinity li.mapsalinity,
+body.document li.document {
+    background-color: #81DAF5;
+}
+
+    #sub-header ul li:hover a,
+    body.index li.index a,
+    body.station li.station a,
+    body.graph li.graph a,
+    body.map li.map a,
+    body.mapsalinity li.mapsalinity a,
+    body.document li.document a {
+        color: #fff;
+    }
+  

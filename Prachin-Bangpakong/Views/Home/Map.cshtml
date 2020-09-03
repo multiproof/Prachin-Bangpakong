@@ -1,0 +1,61 @@
+﻿@{
+    ViewBag.Title = "Map";
+}
+<html lang="en">
+<head runat="server">
+
+    <meta charset="UTF-8" />
+    @*<meta name="viewport" content="width=device-width, initial-scale=1" />*@
+    <script src="~/Scripts/Googlemap.js"></script>
+    <script src="~/Scripts/Datawater.js"></script>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCo1QWr8XKfj7fJljpWGEg02b24v7x_25g"></script>
+
+
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script>
+        $(function () {
+
+           google.maps.event.addDomListener(window, 'load', getmapshow());
+
+
+        });
+        
+    </script>
+</head>
+<body class="map">
+    <div class="pa">
+
+        <div class="col-md-12" id="showgooglemap" style="height:650px;">
+
+        </div>
+        <br /><br />
+
+    </div>
+    <div class="alert alert-info " style="margin-top:630px;background-image: linear-gradient(#B1CBE9, #A3C1E5,#92B9E4);font-size: 15pt;">
+
+        <strong><u style="color:black">หมายเหตุ</u></strong>
+        <br /><br />
+        <div style="overflow-x: auto;white-space: nowrap;">
+            <table class=" table-responsive text-center fixed_header" style="width:100%">
+                <thead>
+                    <tr>
+                        <th style="text-align:center">
+
+                            <img src="~/img/icon/greeny.png">&nbsp;<p style="color:black;display: inline;">การเชื่อมต่อปกติ</p>
+                        </th>
+
+                        <th style="text-align:center">
+                            <img src="~/img/icon/gray.png">&nbsp;<p style="color:black;display: inline;">ขาดการติดต่อ</p>
+                        </th>
+
+                    </tr>
+
+                </thead>
+            </table>
+        </div>
+
+    </div>
+</body>
+</html>

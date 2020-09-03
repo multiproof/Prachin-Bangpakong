@@ -1,0 +1,135 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+<html lang="en">
+<head runat="server">
+    
+    <meta charset="UTF-8" />
+    @*<meta name="viewport" content="width=device-width, initial-scale=1" />*@
+
+    <script src="~/Scripts/Datawater.js"></script>
+    <script>
+        $(function () {
+
+            GetDataWaterStationTatol('-', '-')
+
+
+        });
+
+    </script>
+</head>
+<body class="index">
+    <div class="pa">
+
+        <div class="section" id="showdata">
+            <div class="wrapper">
+
+                <div style="overflow-x: auto;white-space: nowrap;">
+                    <table class="data-table table table-bordered table-hover table-responsive text-center fixed_header">
+                        <thead style="background-color:rgb(68,114,196);font-size:15pt;color:white">
+                            <tr>
+                                <th scope="col" style="vertical-align:middle;text-align: center;">ลำดับที่</th>
+                                <th class="sticky-table-colum-thead" style="vertical-align:middle;text-align: center;">สถานี</th>
+                                <th scope="col" style="vertical-align:middle;text-align: center;">วันที่</th>
+                                <th scope="col" style="vertical-align:middle;text-align: center;">
+                                    เวลา
+                                </th>
+                                <th scope="col" style="vertical-align:middle;text-align: center;">
+                                    ระยะทาง<br>จากทะเล<br />
+                                    <span>(Km.)</span>
+                                </th>
+                                <th scope="col" style="vertical-align:middle;text-align: center;">
+                                    ความเค็ม<br />
+                                    <span>(g/l)</span>
+
+                                </th>
+                                <th scope="col" style="vertical-align:middle;text-align: center;">
+                                    ค่าการนำ<br />ไฟฟ้า<br />
+                                    <span>(µS/cm)</span>
+                                </th>
+                                <th scope="col" style="vertical-align:middle;text-align: center;">
+                                    ออกซิเจน<br />ในน้ำ<br />
+                                    <span>(mg/l)</span>
+
+                                </th>
+                                <th scope="col" style="vertical-align:middle;text-align: center;">
+                                    กรด-ด่าง<br />
+                                    <span>(pH)</span>
+
+                                </th>
+                                <th scope="col" style="vertical-align:middle;text-align: center;">
+                                    ของแข็ง<br />ละลายน้ํา<br />
+                                    <span>(mg/l)</span>
+                                </th>
+                                <th scope="col" style="vertical-align:middle;text-align: center;">
+                                    อุณหภูมิ<br />
+                                    <span>(°C)</span>
+                                </th>
+                                <th scope="col" style="vertical-align:middle;text-align: center;">
+                                    ระดับน้ำ<br />
+                                    <span>m.(MSL.)</span>
+                                </th>
+                                <th scope="col" style="vertical-align:middle;text-align: center;">
+                                    อัตราการไหล <br />
+                                    <span>(m3/s)</span>
+                                </th>
+                                <th scope="col" style="vertical-align:middle;text-align: center;">
+                                    อัตราความเร็ว <br />
+                                    <span>(m/s)</span>
+                                </th>
+
+
+                            </tr>
+                        </thead>
+                        <tbody id="tbshow" style="font-size:15pt;">
+                        </tbody>
+                    </table>
+                </div>
+
+
+            </div>
+
+        </div>
+
+        <div class="alert alert-info " style="margin-top:10px;background-image: linear-gradient(#B1CBE9, #A3C1E5,#92B9E4);">
+
+            <strong><u style="color:black;font-size: 16pt;">หมายเหตุ</u></strong>
+            <br /><br />
+            <div style="overflow-x: auto;white-space: nowrap;">
+                <table class=" table-responsive text-center fixed_header" style="width:100%">
+                    <thead style="font-size:15pt;">
+                        <tr>
+                            <th style="text-align:center">
+                                <strong><span class="glyphicon glyphicon-arrow-up" style="color:dodgerblue"> </span><u style="color:black">เพิ่มขึ้น</u> </strong>
+                                <br /><p style="color:black;">(ปัจจุบัน > ครั้งล่าสุด)</p>
+                            </th>
+                            <th style="text-align:center">
+                                <strong><i class="glyphicon glyphicon-arrow-down" style="color:gray"> </i><u style="color:black">ลดลง</u></strong>
+                                <br /><p style="color:black;">(ปัจจุบัน < ครั้งล่าสุด)</p>
+                            </th>
+                            <th style="text-align:center">
+                                <strong style="color:red">ตัวเลขสีแดง</strong>
+                                <br /><p style="color:black;">(สูงกว่าเกณฑ์มาตรฐาน)</p>
+                            </th>
+                            <th style="text-align:center">
+                                <strong style="color:orange">ตัวเลขสีส้ม</strong>
+                                <br /><p style="color:black;">(สูงกว่าเกณฑ์เฝ้าระวัง)</p>
+                            </th>
+                            <th style="text-align:center">
+                                <strong style="color:black">ตัวเลขสีดำ</strong>
+                                <br /><p style="color:black;">(ปกติ)</p>
+                            </th>
+                            <th style="text-align:center">
+                                <strong style="color:black">N/A</strong>
+                                <br /><p style="color:black;">(อยู่ระหว่างบำรุงรักษา)</p>
+                            </th>
+                        </tr>
+
+                    </thead>
+                </table>
+            </div>
+
+        </div>
+    </div>
+</body>
+</html>

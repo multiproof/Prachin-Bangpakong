@@ -1,0 +1,107 @@
+﻿
+
+.showmap {
+    background-color: #CCC;
+    /*margin:10px;*/
+    height: 600px;
+    border: 1px solid #808080;
+    border-radius: 20px;
+}
+
+.Modal
+{
+    border-radius: 5px;
+    border: 1px solid #666666;
+    -webkit-box-shadow: 0px 0px 10px -1px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 0px 10px -1px rgba(0,0,0,0.75);
+    box-shadow: 0px 0px 10px -1px rgba(0,0,0,0.75);
+    margin: 10px;
+}
+.Modal .modal-Header
+{
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    
+    
+    background-image: -webkit-gradient(
+	linear,
+	left top,
+	left bottom,
+	color-stop(0, #3B8FD4),
+	color-stop(1, #ADD5FF)
+);
+background-image: -o-linear-gradient(bottom, #3B8FD4 0%, #ADD5FF 100%);
+background-image: -moz-linear-gradient(bottom, #3B8FD4 0%, #ADD5FF 100%);
+background-image: -webkit-linear-gradient(bottom, #3B8FD4 0%, #ADD5FF 100%);
+background-image: -ms-linear-gradient(bottom, #3B8FD4 0%, #ADD5FF 100%);
+background-image: linear-gradient(to bottom, #3B8FD4 0%, #ADD5FF 100%);
+    
+}
+.Modal .modal-Header a 
+{
+    display:block;
+    padding:10px 0 10px 10px;
+    font-size:small;
+    font-weight:bolder;
+    color:White;
+    text-decoration:none;
+}
+
+
+.modal-content
+{
+    padding:5px;
+}
+.modal-content-left,.modal-content-rigth
+{
+    width:94px;
+    float:left;
+    padding-bottom:5px;
+}
+.modal-content-center
+{
+    text-align:center;
+    width:70px;
+    float:left;
+    padding-bottom:5px;
+}
+
+
+.modal-content-left,.modal-content-rigth p
+{
+    font-size:9pt;
+    height:18px;
+}
+.modal-content-center p
+{   
+    font-size:9pt;
+}
+
+.modal-footer
+{
+    clear: both;
+    border-top-style: solid;
+    border-top-width: 1px;
+    border-top-color: #C0C0C0;
+    background-color: #EAEAEA;
+}
+.modal-footer p
+{ 
+    padding:10px 0 10px 10px;
+    font-size:small;
+    color:Black;
+}
+#overlay
+{
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    background: #ccc;
+    width: 100%;
+    height: 100vh;
+    opacity: .75;
+    filter: alpha(opacity=75);
+    -moz-opacity: .75;
+    z-index: 999;
+    background: #fff url('../img/KUJoe.gif') no-repeat 50% 50%;
+}     

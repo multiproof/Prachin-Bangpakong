@@ -1,0 +1,196 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="RidPrachinModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AltitudeData">
+          <Key>
+            <PropertyRef Name="ID_AltitudeData" />
+          </Key>
+          <Property Name="ID_AltitudeData" Type="int" Nullable="false" />
+          <Property Name="CodeStation" Type="varchar" MaxLength="50" />
+          <Property Name="MinDo" Type="varchar" MaxLength="50" />
+          <Property Name="MaxDo" Type="varchar" MaxLength="50" />
+          <Property Name="MinConductivity" Type="varchar" MaxLength="50" />
+          <Property Name="MaxConductivity" Type="varchar" MaxLength="50" />
+          <Property Name="MinpH" Type="varchar" MaxLength="50" />
+          <Property Name="MaxpH" Type="varchar" MaxLength="50" />
+          <Property Name="MinTemp" Type="varchar" MaxLength="50" />
+          <Property Name="MaxTemp" Type="varchar" MaxLength="50" />
+          <Property Name="MinSalinity" Type="varchar" MaxLength="50" />
+          <Property Name="MaxSalinity" Type="varchar" MaxLength="50" />
+          <Property Name="MinSolution" Type="varchar" MaxLength="50" />
+          <Property Name="MaxSolution" Type="varchar" MaxLength="50" />
+          <Property Name="MinLevel_water" Type="varchar" MaxLength="50" />
+          <Property Name="MaxLevel_water" Type="varchar" MaxLength="50" />
+          <Property Name="MinFlow" Type="varchar" MaxLength="50" />
+          <Property Name="MaxFlow" Type="varchar" MaxLength="50" />
+          <Property Name="MinVelocity" Type="varchar" MaxLength="50" />
+          <Property Name="MaxVelocity" Type="varchar" MaxLength="50" />
+          <Property Name="Note" Type="varchar" MaxLength="50" />
+          <Property Name="StationName" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="station">
+          <Key>
+            <PropertyRef Name="IDStation" />
+          </Key>
+          <Property Name="IDStation" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SerialSim" Type="varchar" MaxLength="25" />
+          <Property Name="Ime" Type="varchar" MaxLength="25" />
+          <Property Name="Codestation" Type="varchar" MaxLength="10" />
+          <Property Name="StationName" Type="varchar" MaxLength="50" />
+          <Property Name="Lat" Type="varchar" MaxLength="20" />
+          <Property Name="Long" Type="varchar" MaxLength="20" />
+          <Property Name="Address1" Type="varchar" MaxLength="50" />
+          <Property Name="Address2" Type="varchar" MaxLength="50" />
+          <Property Name="Address3" Type="varchar" MaxLength="50" />
+          <Property Name="Levelwater_Offset" Type="varchar" MaxLength="10" />
+          <Property Name="HL4_Installed" Type="bit" />
+          <Property Name="HLD_Installed" Type="bit" />
+          <Property Name="Note" Type="varchar" MaxLength="100" />
+          <Property Name="Entrance" Type="varchar" MaxLength="10" />
+          <Property Name="StatusShow" Type="bit" />
+        </EntityType>
+        <EntityContainer Name="RidPrachinModelStoreContainer">
+          <EntitySet Name="AltitudeData" EntityType="Self.AltitudeData" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="station" EntityType="Self.station" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="RidPrachinModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="AltitudeData">
+          <Key>
+            <PropertyRef Name="ID_AltitudeData" />
+          </Key>
+          <Property Name="ID_AltitudeData" Type="Int32" Nullable="false" />
+          <Property Name="CodeStation" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MinDo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MaxDo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MinConductivity" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MaxConductivity" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MinpH" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MaxpH" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MinTemp" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MaxTemp" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MinSalinity" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MaxSalinity" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MinSolution" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MaxSolution" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MinLevel_water" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MaxLevel_water" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MinFlow" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MaxFlow" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MinVelocity" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MaxVelocity" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Note" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="StationName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="station">
+          <Key>
+            <PropertyRef Name="IDStation" />
+          </Key>
+          <Property Name="IDStation" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SerialSim" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="Ime" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="Codestation" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="StationName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Lat" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Long" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Address1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Address2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Address3" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Levelwater_Offset" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="HL4_Installed" Type="Boolean" />
+          <Property Name="HLD_Installed" Type="Boolean" />
+          <Property Name="Note" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Entrance" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="StatusShow" Type="Boolean" />
+        </EntityType>
+        <EntityContainer Name="RidPrachinEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AltitudeDatas" EntityType="Self.AltitudeData" />
+          <EntitySet Name="stations" EntityType="Self.station" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="RidPrachinModelStoreContainer" CdmEntityContainer="RidPrachinEntities">
+          <EntitySetMapping Name="AltitudeDatas">
+            <EntityTypeMapping TypeName="RidPrachinModel.AltitudeData">
+              <MappingFragment StoreEntitySet="AltitudeData">
+                <ScalarProperty Name="ID_AltitudeData" ColumnName="ID_AltitudeData" />
+                <ScalarProperty Name="CodeStation" ColumnName="CodeStation" />
+                <ScalarProperty Name="MinDo" ColumnName="MinDo" />
+                <ScalarProperty Name="MaxDo" ColumnName="MaxDo" />
+                <ScalarProperty Name="MinConductivity" ColumnName="MinConductivity" />
+                <ScalarProperty Name="MaxConductivity" ColumnName="MaxConductivity" />
+                <ScalarProperty Name="MinpH" ColumnName="MinpH" />
+                <ScalarProperty Name="MaxpH" ColumnName="MaxpH" />
+                <ScalarProperty Name="MinTemp" ColumnName="MinTemp" />
+                <ScalarProperty Name="MaxTemp" ColumnName="MaxTemp" />
+                <ScalarProperty Name="MinSalinity" ColumnName="MinSalinity" />
+                <ScalarProperty Name="MaxSalinity" ColumnName="MaxSalinity" />
+                <ScalarProperty Name="MinSolution" ColumnName="MinSolution" />
+                <ScalarProperty Name="MaxSolution" ColumnName="MaxSolution" />
+                <ScalarProperty Name="MinLevel_water" ColumnName="MinLevel_water" />
+                <ScalarProperty Name="MaxLevel_water" ColumnName="MaxLevel_water" />
+                <ScalarProperty Name="MinFlow" ColumnName="MinFlow" />
+                <ScalarProperty Name="MaxFlow" ColumnName="MaxFlow" />
+                <ScalarProperty Name="MinVelocity" ColumnName="MinVelocity" />
+                <ScalarProperty Name="MaxVelocity" ColumnName="MaxVelocity" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+                <ScalarProperty Name="StationName" ColumnName="StationName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="stations">
+            <EntityTypeMapping TypeName="RidPrachinModel.station">
+              <MappingFragment StoreEntitySet="station">
+                <ScalarProperty Name="IDStation" ColumnName="IDStation" />
+                <ScalarProperty Name="SerialSim" ColumnName="SerialSim" />
+                <ScalarProperty Name="Ime" ColumnName="Ime" />
+                <ScalarProperty Name="Codestation" ColumnName="Codestation" />
+                <ScalarProperty Name="StationName" ColumnName="StationName" />
+                <ScalarProperty Name="Lat" ColumnName="Lat" />
+                <ScalarProperty Name="Long" ColumnName="Long" />
+                <ScalarProperty Name="Address1" ColumnName="Address1" />
+                <ScalarProperty Name="Address2" ColumnName="Address2" />
+                <ScalarProperty Name="Address3" ColumnName="Address3" />
+                <ScalarProperty Name="Levelwater_Offset" ColumnName="Levelwater_Offset" />
+                <ScalarProperty Name="HL4_Installed" ColumnName="HL4_Installed" />
+                <ScalarProperty Name="HLD_Installed" ColumnName="HLD_Installed" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+                <ScalarProperty Name="Entrance" ColumnName="Entrance" />
+                <ScalarProperty Name="StatusShow" ColumnName="StatusShow" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

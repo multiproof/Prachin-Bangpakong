@@ -1,0 +1,412 @@
+﻿@{
+    ViewBag.Title = "Graph";
+}
+<html lang="en">
+<head runat="server">
+    <meta charset="utf-8" />
+    @*<meta name="viewport" content="width=device-width, initial-scale=1.0">*@
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+    <link href="~/style/StyleSheet.css" rel="stylesheet" type="text/css" />
+
+    <script src="~/Scripts/Datawater.js"></script>
+    <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+    <link href="~/Content/select2.min.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="~/Scripts/select2.js"></script>
+    <script src="~/Scripts/select2.min.js"></script>
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            $('#btnsearch').click(function () {
+                var selectcompare = document.getElementById("valuecompare").value;
+                if (selectcompare == "flow") {
+                    var codestation, displaytype;
+                    codestation = $('#selectstation').val();
+                    displaytype = $('#displaytype').val();
+
+                    var fromdate;
+                    fromdate = $('#datepicker1').val();
+                    var todate;
+                    todate = $('#datepicker2').val();
+
+                    GetChartWaterStation(codestation, displaytype, fromdate, todate, 'chart');
+                    $("#comparediv").css("display", "none");
+                    $("#stationdiv").css("display", "block");
+                    $("#comparstationediv").css("display", "none");
+
+                }
+                else if (selectcompare == "para") {
+                    var codestation, displaytype;
+                    codestation = $('#selectstation').val();
+                    var textBoxValueData = $("#textBoxVal").val();
+
+                    displaytype = $('#displaytype').val();
+
+                    var fromdate;
+                    fromdate = $('#datepicker1').val();
+                    var todate;
+                    todate = $('#datepicker2').val();
+                    console.log(fromdate, todate);
+                    GetChartWater(codestation, displaytype, fromdate, todate, textBoxValueData);
+                    $("#comparstationediv").css("display", "block");
+                    $("#stationdiv").css("display", "none");
+                    $("#comparediv").css("display", "none");
+                }
+                else
+                {
+                    var displaytype;
+                    var valuetypeparameter = $("#textBoxVal").val();
+                    var valuetypestation = $("#textBoxVal2").val();
+                    displaytype = $('#displaytype').val();
+
+                    var fromdate;
+                    fromdate = $('#datepicker1').val();
+                    var todate;
+                    todate = $('#datepicker2').val();
+
+                    GetchartStaion(valuetypestation, displaytype, fromdate, todate, valuetypeparameter);
+                    $("#comparediv").css("display", "block");
+                    $("#stationdiv").css("display", "none");
+                    $("#comparstationediv").css("display", "none");
+                }
+            });
+
+            $("#datepicker2").datepicker({ dateFormat: 'dd/mm/yy', maxDate: 'setDate' }).datepicker('setDate', new Date());
+
+            $("#datepicker1").datepicker({ dateFormat: 'dd/mm/yy', maxDate: 'setDate' }).bind("change", function () {
+                var minValue = $(this).val();
+                minValue = $.datepicker.parseDate("dd/mm/yy", minValue);
+                minValue.setDate(minValue.getDate() + 0);
+
+                $("#datepicker2").datepicker("option", "minDate", minValue);
+                $("#datepicker2").removeAttr('disabled');
+            })
+
+            $(".mySelect2").select2({
+                placeholder: "เลือกพารามิเตอร์",
+                allowClear: true,
+                theme: "classic",
+                ajax: {
+                    url: "/Home/multiselect",
+                    dataType: 'json',
+                    delay: 250,
+                    data: function (params) {
+                        return {
+                            searchTerm: params.term
+                        };
+                    },
+                    processResults: function (data, params) {
+                        return {
+                            results: data
+                        };
+                    }
+                }
+            });
+
+        })
+        function selectfirst() {
+
+            var selectcompare = document.getElementById("valuecompare").value;
+            if (selectcompare == 'flow') {
+                $("#parametor").css("display", "none");
+                $("#station2").css("display", "none");
+                $("#station1").css("display", "block");
+            } else if (selectcompare == 'para') {
+                $("#parametor").css("display", "block");
+                $("#station2").css("display", "none");
+                $("#station1").css("display", "block");
+
+            } else if (selectcompare == 'station') {
+                $("#parametor").css("display", "block");
+                $("#station2").css("display", "block");
+                $("#station1").css("display", "none");
+
+            }
+        }
+
+
+        $(function () {
+
+            $('#datepicker1').datepicker().datepicker('setDate', new Date());
+            $('#datepicker2').datepicker().datepicker('setDate', new Date());
+            $('#datepicker2').attr('disabled', 'disabled');
+            var code = GetParameterValues('code');
+
+            if (typeof code === "undefined") {
+                code = 'SP01';
+            }
+
+            //                document.getElementById("imgstation").src = "img/" + code + ".jpg";
+
+            google.charts.load('current', { packages: ['corechart', 'line'] });
+            google.charts.setOnLoadCallback(initialize);
+
+            $("#overlay").fadeOut();
+
+
+        });
+        function GetParameterValues(param) {
+            var url = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+            for (var i = 0; i < url.length; i++) {
+                var urlparam = url[i].split('=');
+                if (urlparam[0] == param) {
+                    return urlparam[1];
+                }
+            }
+        }
+
+        function initialize() {
+            var today = new Date();
+            var dd = today.getDate();
+            var mm = today.getMonth() + 1; //January is 0!
+
+            var yyyy = today.getFullYear();
+            if (dd < 10) {
+                dd = '0' + dd
+            }
+            if (mm < 10) {
+                mm = '0' + mm
+            }
+            var today = dd + '/' + mm + '/' + yyyy;
+            GetChartWaterStation('SP01', 60, today, today, 'chart');
+        }
+
+        $('.hid').hide();
+        $(document).ready(function () {
+            Getdatastation('SP01');
+
+
+            $('#allday').change(function () {
+                $('.hid').toggle();
+            });
+
+            $('#save').click(function () {
+                Addlinedata();
+            });
+
+
+        });
+
+        $(document).ready(function () {
+
+
+            $(".mySelect").select2({
+                placeholder: "เลือกสถานี",
+                allowClear: true,
+                theme: "classic",
+                ajax: {
+                    url: "/Home/multiselect2",
+                    dataType: 'json',
+                    delay: 250,
+                    data: function (params) {
+                        return {
+                            searchTerm: params.term
+                        };
+                    },
+                    processResults: function (data, params) {
+                        return {
+                            results: data
+                        };
+                    }
+                }
+            });
+        });
+        $(document).on('change', ".mySelect2", function () {
+            var catId = $(this).val();
+            $("#textBoxVal").val(catId);
+
+
+            var textBoxValueData = $('#textBoxVal').val();
+
+            $.ajax({
+                url: '/Home/Save?data=' + textBoxValueData,
+                dataType: 'json',
+                type: 'post',
+            });
+        });
+        $(document).on('change', ".mySelect", function () {
+            var catId = $(this).val();
+            $("#textBoxVal2").val(catId);
+
+
+            var textBoxValueData = $('#textBoxVal2').val();
+
+            $.ajax({
+                url: '/Home/Save2?data=' + textBoxValueData,
+                dataType: 'json',
+                type: 'post',
+            });
+        });
+
+        
+</script>
+<style>
+        .select2-search__field {
+            width: 100% !important
+        }
+        .h4, h4 {
+            font-size: 18pt;
+        }
+        .form-control{
+            font-size: 14pt;
+        }
+        
+        .select2 {
+            /* display: block; */
+            width: 100% !important;
+            height: 34px;
+            /* padding: 6px 12px; */
+            font-size: 14pt;
+            line-height: 1.42857143;
+            color: #555;
+            background-color: #fff;
+            background-image: none;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .btn{
+             font-size: 16pt;
+        }
+    </style>
+</head>
+<body class="graph">
+    <div class="col-md-12">
+        <div class="panel panel-primary">
+            <div class="panel-body">
+
+                <div class="col-md-12" style="padding-left:0;">
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <p style="font-size:16pt !important;font-weight:bold;">เปรียบเทียบ</p>
+
+
+                            <select onchange="selectfirst()" id="valuecompare" class="form-control">
+                                <option value="flow">อัตราการไหล</option>
+                                <option value="para">พารามิเตอร์</option>
+                                <option value="station">สถานี</option>
+
+                            </select>
+                        </div>
+
+                    </div>
+                    <div class="col-md-2" id="station1" style="display:block;">
+                        <p style="font-size:16pt !important; font-weight:bold;">เลือกสถานี</p>
+                        <select id="selectstation" class="form-control"></select>
+                    </div>
+                    <div class="col-md-2" id="station2" style="display:none;">
+                        <p style="font-size:16pt !important;font-weight:bold;">เลือกสถานี</p>
+                        <input type="hidden" style="width:100% !important" id="textBoxVal2" />
+                        <select class="mySelect form-control" multiple id="valuetype">
+                        </select>
+                    </div>
+                    <div class="col-md-2" id="parametor" style="display:none;">
+                        <div class="form-group">
+
+                            <p style="font-size:16pt !important;font-weight:bold;">พารามิเตอร์ </p>
+                            <input type="hidden" style="width:100% !important" id="textBoxVal" />
+                            <select class="mySelect2 form-control" multiple ></select>
+                        </div>
+
+                    </div>
+                    <div class="col-md-2">
+                        <p style="font-size:16pt !important;font-weight:bold;">ตั้งแต่วันที่ </p>
+                        <input class="form-control" style="padding:5px 0 5px 15px; background-color:#EFEFEF;" type="datetime" id="datepicker1" readonly='true'>
+                    </div>
+                    <div class="col-md-2">
+                        <p style="font-size:16pt !important;font-weight:bold;">ถึงวันที่ </p>
+                        <input class="form-control" style="padding:5px 0 5px 15px; background-color:#EFEFEF;" type="datetime" id="datepicker2" readonly='true'>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <p style="font-size:16pt !important;font-weight:bold;">การแสดงข้อมูล </p>
+
+                            <select id="displaytype" class="form-control">
+                                <option value="60">รายชั่วโมง</option>
+                                <option value="15">ราย 15 นาที</option>
+                            </select>
+                        </div>
+
+                    </div>
+
+
+                </div>
+                <div class="col-md-12">
+                    <div style="float:right; padding-top:20px;">
+                        <input id="btnsearch" type="button" value="ค้นหาข้อมูล" class="btn btn-primary" />
+                        <input id="btnExport" type="button" value="Export" class="btn btn-primary" />
+
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="display-data row" id="stationdiv">
+
+            <div class="col-md-12" id="Salinity" style="height: 50vh; width: 100%;margin-top: 50px;margin-bottom: 50px;"></div>
+
+            <div class="col-md-12" id="DataConductivity" style="height: 50vh; width: 100%;margin-top: 50px;margin-bottom: 50px;"></div>
+
+            <div class="col-md-12" id="DataDo" style="height: 50vh; width: 100%;margin-top: 50px;margin-bottom: 50px;"></div>
+
+            <div class="col-md-12" id="ph" style="height: 50vh; width: 100%;margin-top: 50px;margin-bottom: 50px;"></div>
+
+            <div class="col-md-12" id="TDS" style="height: 50vh; width: 100%;margin-top: 50px;margin-bottom: 50px;"></div>
+            
+            <div class="col-md-12" id="Level_water" style="height: 50vh; width: 100%;margin-top: 50px;margin-bottom: 50px;"></div>
+
+            <div class="col-md-12" id="temp" style="height: 50vh; width: 100%;margin-top: 50px;margin-bottom: 50px;"></div>
+
+            <div class="col-md-12" id="Flow" style="height: 50vh; width: 100%;margin-top: 50px;margin-bottom: 50px;"></div>
+
+
+            <div class="col-md-12" id="velocity" style="height: 50vh; width: 100%;margin-top: 50px;margin-bottom: 50px;"></div>
+
+            
+            @*<hr  id="hr-velocity"/>*@
+        </div>
+
+        <div class="col-md-12" id="comparstationediv" style="display:none">
+
+            <div  id="chartstation" style="height: 50vh; width: 100%;margin-top: 50px;margin-bottom: 50px;"></div>
+           
+        </div>
+
+        <div class="col-md-12" id="comparediv" style="display:none">
+
+
+            <div class="col-md-12" id="chartDataDo" style="height: 50vh; width: 100%;margin-top: 50px;margin-bottom: 50px;"></div>
+
+
+            <div class="col-md-12" id="chartConductivity" style="height: 50vh; width: 100%;margin-top: 50px;margin-bottom: 50px;"></div>
+
+
+            <div class="col-md-12" id="chartph" style="height: 50vh; width: 100%;margin-top: 50px;margin-bottom: 50px;"></div>
+
+
+            <div class="col-md-12" id="chartSalinity" style="height: 50vh; width: 100%;margin-top: 50px;margin-bottom: 50px;"></div>
+
+            <div class="col-md-12" id="chartLevel_water" style="height: 50vh; width: 100%;margin-top: 50px;margin-bottom: 50px;"></div>
+
+            <div class="col-md-12" id="chartTDS" style="height: 50vh; width: 100%;margin-top: 50px;margin-bottom: 50px;"></div>
+
+
+            <div class="col-md-12" id="chartFlow" style="height: 50vh; width: 100%;margin-top: 50px;margin-bottom: 50px;"></div>
+
+
+            <div class="col-md-12" id="chartvelocity" style="height: 50vh; width: 100%;margin-top: 50px;margin-bottom: 50px;"></div>
+
+            <div class="col-md-12" id="charttemp" style="height: 50vh; width: 100%;margin-top: 50px;margin-bottom: 50px;"></div>
+        </div>
+
+
+    </div>
+</body>
+</html>
